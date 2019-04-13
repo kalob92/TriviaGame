@@ -16,11 +16,29 @@
 
 <body>
 
-    <div class="game">
-        <h1 class="display-1">triviaflora</h1>
+    <div class="jumbotron" id="game">
 
-        <p>Time Remaining: <span id="seconds-remaining"></span></p>
-        <p></p>
+        <h1>triviaflora</h1>
+
+        <!-- countdown timer /// resets at each question -->
+        <p class="lead">Time Remaining: <span id="seconds-remaining"></span></p>
+
+        <!-- card where new questions go -->
+        <div class="new-question-here">
+                <div class="card" style="width: 18rem;">
+                        <div class="card-header" id="question-text">
+                          question
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item" id="question-1">Cras justo odio</li>
+                          <li class="list-group-item" id="question-2">Dapibus ac facilisis in</li>
+                          <li class="list-group-item" id="question-3">Vestibulum at eros</li>
+                          <li class="list-group-item" id="question-4">Lorem ipsum dolor si</li>
+                        </ul>
+                      </div>
+        </div>
+
+
     </div>
 
 
