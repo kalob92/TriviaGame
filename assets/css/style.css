@@ -1,0 +1,15 @@
+body {
+    background-image: url('../images/trees.jpg');
+}
+
+.jumbotron {
+    background-image: url('../images/leaves.jpg')
+}
+
+h1 {
+    color: gold;
+}
+
+.lead {
+    color: rgb(155, 199, 178);
+}

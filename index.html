@@ -8,41 +8,81 @@
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="assets/javascript/app.js"></script>
     <title>Trivia Time!</title>
 </head>
 
 
 <body>
 
-    <div class="jumbotron" id="game">
+    <div class="container game">
+        <div class="jumbotron justify-content-center">
 
-        <h1>triviaflora</h1>
+            <h1 class="text-center">triviabotanica</h1>
 
-        <!-- countdown timer /// resets at each question -->
-        <p class="lead">Time Remaining: <span id="seconds-remaining"></span></p>
+            <!-- countdown timer /// resets at each question -->
+            <p class="lead text-center">Time Remaining: <span id="seconds-remaining">&#9904</span></p>
+            
+            <div class="instructions">
+                <div class="card mx-auto" style="width: 30rem;">
+                    <p class="card-text text-center">Answer each question within 180 seconds or you lose :)</p>
+                    <p class="card-text text-center">Press Start to begin.</p>
+                    <button type="button" class="btn btn-success" id="startBtn">Start</button>
+                </div>
+            </div>
 
-        <!-- card where new questions go -->
-        <div class="new-question-here">
-                <div class="card" style="width: 18rem;">
-                        <div class="card-header" id="question-text">
-                          question
-                        </div>
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item" id="question-1">Cras justo odio</li>
-                          <li class="list-group-item" id="question-2">Dapibus ac facilisis in</li>
-                          <li class="list-group-item" id="question-3">Vestibulum at eros</li>
-                          <li class="list-group-item" id="question-4">Lorem ipsum dolor si</li>
+            <!-- card where new questions go -->
+            <!-- <div class="questionContainer card mx-auto">
+                <div class="card mx-auto" style="width: 30rem;">
+                    <div class="card-header" id="question-text">
+                    question
+                    </div>
+                    <form>
+                        <ul class="list-group list-group-flush" id="choice-group">
+                            <div class="custom-control custom-radio">
+                                <li class="list-group-item" id="answer-1">
+                                    <input type="radio" class="custom-control-input" id="radio1" name="choose">
+                                    <label class="custom-control-label" for="radio1">answer one</label>
+                                </li>
+                                <li class="list-group-item" id="answer-2">
+                                    <input type="radio" class="custom-control-input" id="radio2" name="choose">
+                                    <label class="custom-control-label" for="radio2">answer two</label>
+                                </li>
+                                <li class="list-group-item" id="answer-3">
+                                    <input type="radio" class="custom-control-input" id="radio3" name="choose">
+                                    <label class="custom-control-label" for="radio3">answer three</label>
+                                </li>
+                                <li class="list-group-item" id="answer-4">
+                                    <input type="radio" class="custom-control-input" id="radio4" name="choose">
+                                    <label class="custom-control-label" for="radio4">answer four</label>
+                                </li>
+                            </div>
                         </ul>
-                      </div>
+
+                        <div class="card-footer">
+                        </div>
+                    </form>
+                </div>
+            </div> -->
+
+            <!-- Holds the correct answer summary -->
+            <div id="correctAnswerSummary"></div>
+            <br>
+            <!-- Holds the wrong answer summary -->
+            <div id="wrongAnswerSummary"></div>
+            <br>
+                <button id="tryAgainBtn" class="btn btn-danger">Try Again</button>
+            <br>
+            <!-- questions -->
+            <!-- ======================================================= -->
+            <div class= "questions"></div>
+            <br>
+            <!-- Submit -->
+                <button id="submitBtn" class="btn btn-danger">Submit</button>
         </div>
-
-
     </div>
 
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
