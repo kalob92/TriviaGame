@@ -2,62 +2,32 @@
 var qArray = [
     {
         q: 'Which of these is botanically a "true" berry?',
-        choices: {
-            a: 'raspberry',
-            b: 'eggplant',
-            c: 'strawberry',
-            d: 'blackberry'
-        },
+        choices: ['raspberry', 'eggplant', 'strawberry', 'blackberry'],
         rightAnswer: 'b',
     },
     {
         q: 'What plant has the largest seed?',
-        choices: {
-            a: 'palm tree',
-            b: 'avocado',
-            c: 'orchid',
-            d: 'redwood tree'
-        },
+        choices: ['palm tree', 'avocado', 'orchid', 'redwood tree'],
         rightAnswer: 'a',
     },
     {
         q: 'What is the Colorado State Tree?',
-        choices: {
-            a: 'white fir',
-            b: 'Norway spruce',
-            c: 'blue spruce',
-            d: 'Norfolk pine'
-        },
+        choices: ['white fir', 'Norway spruce', 'blue spruce', 'Norfolk pine'],
         rightAnswer: 'c',
     },
     {
         q: 'What is vanilla harvested from?',
-        choices: {
-            a: 'a cactus',
-            b: 'a rose',
-            c: 'a bean bush',
-            d: 'an orchid'
-        },
+        choices: ['a cactus', 'a rose', 'a bean bush', 'an orchid'],
         rightAnswer: 'd',
     },
     {
         q: 'What do you call a plant that drops its leaves in cold seasons and droughts?',
-        choices: {
-            a: 'evergreen',
-            b: 'deciduous',
-            c: 'wimpy',
-            d: 'perennial'
-        },
+        choices: ['evergreen', 'deciduous', 'wimpy', 'perennial'],
         rightAnswer: 'b',
     },
     {
         q: 'What is an epiphyte?',
-        choices: {
-            a: 'a plant that grows off another plant',
-            b: 'a pest that eats the bark of a tree',
-            c: 'plants that perform photosynthesis more often',
-            d: 'a plant that only flowers in winter'
-        },
+        choices: ['a plant that grows off another plant', 'a pest that eats the bark of a tree', 'plants that perform photosynthesis more often', 'a plant that only flowers in winter'],
         rightAnswer: 'a',
     }
 ];
@@ -73,19 +43,20 @@ var game = {
     wrongAnswers: 0,
 
     startGame: function() {
+        $("#tryAgainBtn").hide();
         $(".instructions").hide();
         $("#submitBtn").show();
         $('.questionContainer').show();
         $("#seconds-remaining").text(game.counter);
         
         for (var i = 0; i < qArray.length; i++) {
-            $(".questions").append("<h3>" + qArray[i].q + "</h3>");
+            $(".questions").append("<h3 class='question-title mt-3 pt-2 mb-1'>&bullet;" + qArray[i].q + "</h3>");
             for (var j = 0; j < qArray[i].choices.length; j++) {
                 $(".questions").append("<br>" + " <input type='radio' name='question-" + i + "' value='" + qArray[i].choices[j] + "'' > " + qArray[i].choices[j])
             }
         }
         $(".questions").show();
-        $("#correctAnswerSummary").hide();
+        $("#rightAnswerSummary").hide();
         $("#wrongAnswerSummary").hide();
         intervalID = setInterval(game.count, 1000);
         clockRunning = true;
@@ -109,26 +80,46 @@ var game = {
     },
     checkAnswer: function () {
         $.each($("input[name=question-0]:checked"), function () {
-            if ($(this).val() === questions[0].rightAnswer) {
-                game.correctAnswers++;
+            if ($(this).val() === qArray[0].rightAnswer) {
+                game.rightAnswers++;
             } else { game.wrongAnswers++; }
         });
         $.each($("input[name=question-1]:checked"), function () {
-            if ($(this).val() === questions[1].correctAnswer) {
-                game.correctAnswers++;
+            if ($(this).val() === qArray[1].rightAnswer) {
+                game.rightAnswers++;
             } else { game.wrongAnswers++; }
         });
         $.each($("input[name=question-2]:checked"), function () {
-            if ($(this).val() === questions[2].correctAnswer) {
-                game.correctAnswers++;
+            if ($(this).val() === qArray[2].rightAnswer) {
+                game.rightAnswers++;
             } else { game.wrongAnswers++; }
         });
         $.each($("input[name=question-3]:checked"), function () {
-            if ($(this).val() === questions[3].correctAnswer) {
-                game.correctAnswers++;
+            if ($(this).val() === qArray[3].rightAnswer) {
+                game.rightAnswers++;
             } else { game.wrongAnswers++; }
         });
-    }
+        $("#rightAnswerSummary").show();
+        $("#wrongAnswerSummary").show();
+        $("#rightAnswerSummary").text("Correct Answers: " + game.rightAnswers);
+        $("#wrongAnswerSummary").text("Incorrect Answers: " + game.wrongAnswers);
+        $("#tryAgainBtn").show();
+        $("#seconds-remaining").text("Time's up!");
+        $(".questions").hide();
+        $("#submitBtn").hide();
+    },
+    submit: function () {
+        clearInterval(intervalID);
+        clockRunning = false;
+        $(".questions").hide()
+        $("#timeRemaining").text("Your Summary");
+        $("#rightAnswerSummary").text("Correct Answers: " + rightAnswers);
+        $("#wrongAnswerSummary").text("Incorrect Answers: " + wrongAnswers);
+        $("#rightAnswerSummary").show();
+        $("#wrongAnswerSummary").show();
+        $("#tryAgainBtn").show();
+        $("#submitBtn").hide();
+}
 };
 
 

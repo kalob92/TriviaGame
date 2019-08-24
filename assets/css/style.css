@@ -13,3 +13,19 @@ h1 {
 .lead {
     color: rgb(155, 199, 178);
 }
+
+.questions {
+    background-color: rgba(134, 226, 213, .3);
+}
+
+.question-title {
+    background-color: rgba(134, 226, 213, .75);
+}
+
+#wrongAnswerSummary {
+    background-color: rgba(134, 226, 213, .6);
+}
+
+#rightAnswerSummary {
+    background-color: rgba(134, 226, 213, .6);
+}
