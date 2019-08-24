@@ -66,7 +66,7 @@ var clockRunning = false;
 // must click start button ("#starbtn") to begin game which displays questions, starts timer
 $("#tryAgainBtn").hide();
 $("#submitBtn").hide();
-$("#questionContainer").hide();
+$(".questionContainer").hide();
 
 var game = {
     rightAnswers: 0,
@@ -75,57 +75,75 @@ var game = {
     startGame: function() {
         $(".instructions").hide();
         $("#submitBtn").show();
-        $('#questionContainer').show();
+        $('.questionContainer').show();
         $("#seconds-remaining").text(game.counter);
-        var output = [];
-        var choices;
+        
         for (var i = 0; i < qArray.length; i++) {
-            choices = [];
-
-            for(letter in qArray[i].choices){
-                choices.push(
-                    '<label>'
-                        + '<input type="radio" class="custom-control-input" name="choose'+i+'" value="'+letter+'">'
-                        + letter + ': '
-                        + qArray[i].choices[letter]
-                    + '</label>'
-                );
+            $(".questions").append("<h3>" + qArray[i].q + "</h3>");
+            for (var j = 0; j < qArray[i].choices.length; j++) {
+                $(".questions").append("<br>" + " <input type='radio' name='question-" + i + "' value='" + qArray[i].choices[j] + "'' > " + qArray[i].choices[j])
             }
-            
-            output.push(
-                '<div class="question"' + qArray[i].q + '</div>'
-                + '<div class="answers">' + choices.join('') + '</div>'
-            );
         }
+        $(".questions").show();
         $("#correctAnswerSummary").hide();
         $("#wrongAnswerSummary").hide();
         intervalID = setInterval(game.count, 1000);
         clockRunning = true;
-        $("#questionContainer").innerHTML = output.join('');
+    },
+    reset: function () {
+        clearInterval(intervalID);
+        clockRunning = false;
+        game.counter = 15;
+        game.rightAnswers = 0;
+        game.wrongAnswers = 0;
+        $(".questions").empty();
+    },
+    count: function () {
+        game.counter--;
+        $("#seconds-remaining").html(game.counter);
+        if (game.counter === 0) {
+            alert("Time is up!");
+            game.checkAnswer();
+            game.reset();
+        }
+    },
+    checkAnswer: function () {
+        $.each($("input[name=question-0]:checked"), function () {
+            if ($(this).val() === questions[0].rightAnswer) {
+                game.correctAnswers++;
+            } else { game.wrongAnswers++; }
+        });
+        $.each($("input[name=question-1]:checked"), function () {
+            if ($(this).val() === questions[1].correctAnswer) {
+                game.correctAnswers++;
+            } else { game.wrongAnswers++; }
+        });
+        $.each($("input[name=question-2]:checked"), function () {
+            if ($(this).val() === questions[2].correctAnswer) {
+                game.correctAnswers++;
+            } else { game.wrongAnswers++; }
+        });
+        $.each($("input[name=question-3]:checked"), function () {
+            if ($(this).val() === questions[3].correctAnswer) {
+                game.correctAnswers++;
+            } else { game.wrongAnswers++; }
+        });
     }
 };
 
 
-$("#startBtn").on("click", function() {   
+$("#startBtn").on("click", function () {
+    $("#seconds-remaining").show();
     game.startGame();
+});
 
-    window.setTimeout(timeBegin, 0);
-    function timeBegin (){
-        console.log ('You have 120 seconds to complete this quiz!');
-    };
+$("#submitBtn").on("click", function () {
+    game.checkAnswer();
+    game.reset();
+});
 
-    window.setTimeout(halftime, 1000 * 60);
-    function halftime (){
-        console.log ('You have 60 seconds left!');
-    };
-
-    window.setTimeout(timeout, 1000 * 120);
-    function timeout (){
-        alert ("Time's up, check the results below!");
-        console.log ("time's up");
-        score();
-    };
-
-    $('#submitBtn').on("click", score());
-
+$("#tryAgainBtn").on("click", function () {
+    $("#seconds-remaining").show();
+    game.reset();
+    game.startGame();
 });
